@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShadesIntelCore.Api\Application.Api.csproj" />
+    <ProjectReference Include="..\ShadesIntelCore.BLLInterfaces\Application.BLLInterfaces.csproj" />
+    <ProjectReference Include="..\ShadesIntelCore.BLL\Application.BLL.csproj" />
+    <ProjectReference Include="..\ShadesIntelCore.DAL\Application.DAL.csproj" />
+    <ProjectReference Include="..\ShadesIntelCore.Entities\Application.Entities.csproj" />
+    <ProjectReference Include="..\ShadesIntelCore.Models\Application.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\" />
+  </ItemGroup>
+
+</Project>
