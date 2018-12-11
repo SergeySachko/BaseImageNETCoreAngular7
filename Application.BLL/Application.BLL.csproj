@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup> 
+    <ProjectReference Include="..\Application.BLLInterfaces\Application.BLLInterfaces.csproj" /> 
+    <ProjectReference Include="..\Application.DAL\Application.DAL.csproj" /> 
+    <ProjectReference Include="..\Application.Entities\Application.Entities.csproj" /> 
+    <ProjectReference Include="..\Application.Models\Application.Models.csproj" />
+  </ItemGroup>
+
+
+
+</Project>

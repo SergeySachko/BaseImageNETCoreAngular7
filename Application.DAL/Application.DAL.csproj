@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShadesIntelCore.Entities\Application.Entities.csproj" />
+    <ProjectReference Include="..\Application.Entities\Application.Entities.csproj" />
   </ItemGroup>
 
 

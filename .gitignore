@@ -288,18 +288,8 @@ src/Application/app/services/*.js
 src/Application/app/models/*.js.map
 src/Application/app/components/*.js.map
 
-src/Application/dist/vendor.bundle.js.map
-src/Application/dist/vendor.bundle.js
-src/Application/dist/vendor.bundle.min.js
-src/Application/dist/polyfills.bundle.js.map
-src/Application/dist/polyfills.bundle.js
-src/Application/dist/main.bundle.js.map
-src/Application/dist/main.bundle.js
-src/Application/dist/inline.bundle.js.map
-src/Application/dist/inline.bundle.js
-src/Application/dist/index.html
-src/Application/dist/favicon.ico
-src/Application/dist/out-tsc
+Application/wwwroot/dist/*.*
+Application/dist
 
 src/Application/dist/scripts.bundle.js
 src/Application/dist/scripts.bundle.js.map

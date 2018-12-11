@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShadesIntelCore.BLLInterfaces\Application.BLLInterfaces.csproj" />
-    <ProjectReference Include="..\ShadesIntelCore.Models\Application.Models.csproj" />
+    <ProjectReference Include="..\Application.BLLInterfaces\Application.BLLInterfaces.csproj" />
+    <ProjectReference Include="..\Application.Models\Application.Models.csproj" />
   </ItemGroup>
 
 </Project>
