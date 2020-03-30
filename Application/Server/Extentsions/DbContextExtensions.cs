@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Application.DAL;
 using System.Linq;
-
 
 namespace Application.Server.Extentsions
 {

@@ -5,7 +5,7 @@ using Application.DAL;
 
 namespace Application.BLL
 {
-    public class DbContextFactory : IDbContextFactory
+   public class DbContextFactory : IDbContextFactory
     {
         private readonly IServiceScopeFactory serviceFactory;
 

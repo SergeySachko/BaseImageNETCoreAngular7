@@ -1,30 +1,31 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Application.BLL;
 using Application.BLLInterfaces;
 using Application.DAL;
 using Application.Entities;
+using Microsoft.Extensions.Configuration;
 
 namespace Application.Server.Extentsions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddCustomDevDbContext(this IServiceCollection services)
+        public static IServiceCollection AddCustomDevDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Startup.Configuration["Data:Dev:SqlServerConnectionString"], b => b.MigrationsAssembly("Application.DAL"));
+                options.UseSqlServer(configuration["Data:Dev:SqlServerConnectionString"], b => b.MigrationsAssembly("Application.DAL"));
             });
 
             return services;
         }
 
-        public static IServiceCollection AddCustomProdDbContext(this IServiceCollection services)
+        public static IServiceCollection AddCustomProdDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Startup.Configuration["Data:Prod:SqlServerConnectionString"], b => b.MigrationsAssembly("Application.DAL"));
+                options.UseSqlServer(configuration["Data:Prod:SqlServerConnectionString"], b => b.MigrationsAssembly("Application.DAL"));
             });
 
             return services;

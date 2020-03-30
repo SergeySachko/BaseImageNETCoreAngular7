@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Application.Server.Extentsions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Application.Api;
-using Application.Server.Extentsions;
+using Microsoft.Extensions.Hosting;
 
 namespace Application
 {
@@ -16,30 +17,33 @@ namespace Application
             Configuration = configuration;
         }
 
-        public static IConfiguration Configuration { get; set; }       
+        public IConfiguration Configuration { get; }
 
-    
-        public void ConfigureDevelopmentServices(IServiceCollection services)
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCustomDevDbContext();
+             services.AddCustomDevDbContext(Configuration);
 
             services.AddDependencies();
 
             services.AddCustomIdentity();
 
             services.Configure<CookiePolicyOptions>(options =>
-            {
-                
+            {                
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllersWithViews();
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
         }
 
-      
-        public void ConfigureDevelopment(IApplicationBuilder app, IHostingEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -47,68 +51,39 @@ namespace Application
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");             
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
+            if (!env.IsDevelopment())
             {
-                routes.MapRoute(
+                app.UseSpaStaticFiles();
+            }
+             app.UseCookiePolicy();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
-
-        public void ConfigureProductionServices(IServiceCollection services)
-        {
-            services.AddCustomProdDbContext();
-
-            services.AddDependencies();
-
-            services.AddCustomIdentity();
-
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
-
-            services.AddMvc()   
-                    .AddApplicationPart(typeof(ApplicationApiController).Assembly)
-                    .AddJsonOptions(options =>
-                    {
-                        //options.SerializerSettings.ContractResolver = new DefaultContractResolver(); // Return json according to model ( upper or lower case first char) 
-                    }); 
-        }
-
-
-        public void ConfigureProduction(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
+            app.UseSpa(spa =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts();
-            }
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+                spa.Options.SourcePath = "ClientApp";
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

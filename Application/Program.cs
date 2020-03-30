@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,12 +19,11 @@ namespace Application
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseConfiguration(new ConfigurationBuilder()
+                 .UseConfiguration(new ConfigurationBuilder()
                   .AddCommandLine(args)
                   .SetBasePath(Directory.GetCurrentDirectory())                
                   .AddJsonFile("appsettings.json", optional: true)
                   .Build())
-                .UseIISIntegration()
                 .UseStartup<Startup>();
     }
 }
